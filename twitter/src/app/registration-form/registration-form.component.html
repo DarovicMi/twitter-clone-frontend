@@ -1,0 +1,158 @@
+<div class="main-div">
+  <mat-card>
+    <mat-card-title class="card-title">Register</mat-card-title>
+    <mat-card-content>
+      <form
+        class="form-group"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div>
+          <mat-form-field class="form-field">
+            <mat-label for="name">Username</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your username..."
+              formControlName="username"
+              [(ngModel)]="user.username"
+              name="username"
+              autofocus
+            />
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error
+              *ngIf="registrationField?.['username'].invalid && registrationField?.['username'].errors?.['required']"
+              >Username field is required</mat-error
+            >
+            <mat-error
+              *ngIf="registrationField?.['username'].errors?.['minlength']"
+              >Please enter more than {{ this.minLength }} characters
+            </mat-error>
+            <mat-error
+              *ngIf="registrationField?.['username'].errors?.['maxlength']"
+              >Username should be between {{ this.minLength }} and
+              {{ this.maxLength }} characters</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Enter your email..."
+              maxlength="100"
+              formControlName="email"
+              [(ngModel)]="user.email"
+              name="email"
+            />
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            <mat-error
+              *ngIf="registrationField?.['email'].invalid && registrationField?.['email'].errors?.['required']"
+              >Email field is required</mat-error
+            >
+            <mat-error *ngIf="registrationField?.['email'].errors?.['email']"
+              >Not a valid email address</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="form-field">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="hide ? 'text' : 'password'"
+              matInput
+              placeholder="Enter your password..."
+              formControlName="password"
+              [(ngModel)]="user.password"
+              name="password"
+            />
+            <mat-icon class="password-icon" matSuffix (click)="hide = !hide">{{
+              hide ? "visibility" : "visibility_off"
+            }}</mat-icon>
+            <mat-error
+              *ngIf="registrationField?.['password'].invalid && registrationField?.['password'].errors?.['required']"
+              >Password field is required</mat-error
+            >
+            <mat-error
+              *ngIf="registrationField?.['password'].errors?.['minlength']"
+              >Please enter more than {{ this.minLength }} characters</mat-error
+            >
+            <mat-error
+              *ngIf="registrationField?.['password'].errors?.['maxlength']"
+              >Password should be between {{ this.minLength }} and
+              {{ this.maxLength }} characters</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="form-field">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              [type]="hide ? 'text' : 'password'"
+              matInput
+              placeholder="Confirm your password..."
+              formControlName="confirmPassword"
+              ngModel
+            />
+            <mat-error
+              *ngIf="registrationField?.['confirmPassword'].invalid && registrationField?.['confirmPassword'].errors?.['required']"
+              >Confirming your password is required</mat-error
+            >
+            <mat-error
+              *ngIf="registrationField?.['confirmPassword'].errors?.['mustMatch']"
+              >Passwords don't match</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="form-field">
+            <mat-label>Account Type</mat-label>
+            <mat-icon matSuffix>accessibility</mat-icon>
+            <mat-select
+              [(ngModel)]="user.accountType"
+              formControlName="accountType"
+              name="accountType"
+            >
+              <mat-option *ngFor="let type of types" [value]="type.value">
+                {{ type.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="registrationField?.['accountType'].invalid && registrationField?.['accountType'].errors?.['required']"
+              >Account Type is required</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <button type="button" mat-raised-button (click)="fileInput.click()">
+            Choose File
+          </button>
+          <input
+            hidden
+            (change)="onFileSelected($event)"
+            #fileInput
+            type="file"
+            accept="image/*"
+            [(ngModel)]="user.imageUrl"
+            name="imageUrl"
+          />
+          <mat-icon class="file-image" matSuffix>wallpaper</mat-icon>
+          <div>
+            <mat-hint>Choose a picture for your avatar</mat-hint>
+          </div>
+          <div>
+            <ng-container class="file-name">{{ imageUrl?.name }}</ng-container>
+          </div>
+        </div>
+        <div class="button-div">
+          <button type="submit" class="btn" mat-raised-button color="primary"><a routerLink="/register">Submit</a></button>
+        </div>
+       
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<router-outlet></router-outlet>

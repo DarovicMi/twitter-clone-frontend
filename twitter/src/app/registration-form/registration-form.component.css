@@ -1,0 +1,49 @@
+
+.password-icon {
+    cursor: pointer;
+  }
+
+.main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+mat-card {
+  width: 30%;
+}
+
+.form-field {
+    padding: 1rem;
+    width: 100%;
+}
+
+.file-image {
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+
+}
+
+.card-title{
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  padding-top: 2rem;
+}
+.form-group {
+  padding: 5rem;
+}
+
+.btn {
+
+ width: 40%;
+}
+
+.button-div {
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+}
