@@ -21,8 +21,8 @@ const routes: Routes = [
   {path: 'register', component:RegistrationFormComponent},
   {path: 'login', component:LoginFormComponent},
   {path: 'feed', component:FeedComponent, canActivate: [AuthGuard]},
-  {path: 'verifyRegistration', component: VerificationLinkComponent}
-  
+  {path: 'verifyRegistration/:id', component: VerificationLinkComponent}
+
 ];
 
 @NgModule({

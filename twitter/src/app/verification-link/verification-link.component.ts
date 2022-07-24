@@ -11,19 +11,24 @@ import { VerificationService } from '../verification.service';
 })
 export class VerificationLinkComponent implements OnInit{
 
-  constructor(private service: VerificationService) { }
+  constructor(
+    private service: VerificationService,
+    private activeRouter: ActivatedRoute) { }
 
   token;
 
 ngOnInit() {
-  this.service.getResentToken(this.token).subscribe(response => {
-    this.token = response;
-    console.log(this.token);
-  });
+  this.activeRouter.params.subscribe(params => {
+    this.service.getResentToken(params["id"]).subscribe(response => {
+      this.token = response;
+      console.log(this.token);
+    });
+  })
+
 }
 
 
-  
+
 
 
 

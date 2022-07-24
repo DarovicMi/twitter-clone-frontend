@@ -35,12 +35,8 @@ export class LoginFormComponent  {
     if(this.loginForm.valid){
       this.submitForm();
       this.loggedIn = true;
-      let resp: UserLoginDto = this.authenticationService.login(this.username,this.password);
-      if (resp.accountStatus === 'ACTIVE') {
-          this.router.navigate(['feed']);
-      } else {
-          console.log(resp);
-      }
+      const errors = this.authenticationService.login(this.username,this.password);
+      console.log("errors", errors);
     }
   }
 

@@ -14,7 +14,6 @@ export class VerificationService {
 
   url = environment.apiBaseUrl;
 
- 
 
   getResentToken(token) {
     let params = new HttpParams().set('token', token);
@@ -22,5 +21,5 @@ export class VerificationService {
    return this.http.get<any>(`${this.url}/resendVerifyToken`, {params});
   }
 
- 
+
 }
