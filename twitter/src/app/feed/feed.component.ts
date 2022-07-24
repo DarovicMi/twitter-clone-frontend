@@ -17,18 +17,18 @@ export class FeedComponent implements OnInit{
     ngOnInit(): void {
       this.route.paramMap.subscribe(() => {
         this.getUsers();
-      }); 
+      });
     }
-    
-  
+
+
   users: User[];
-  
+
   loading: boolean;
 
   tweetForm = new FormGroup({
     text: new FormControl('')
   });
-  
+
   getUsers() {
     this.userService.getUsers().subscribe(response => {
       this.users = response;
@@ -36,4 +36,7 @@ export class FeedComponent implements OnInit{
     });
   }
 
+  // saveTweet (din tweet service)
+  // dupa fiecare apel la saveTweet ar trebui apelata metoda de showFeed
+  // metoda de showFeed ar trebui apelata si in ngOnInit
 }
