@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../security-login/authentication.service';
-import { User } from '../entity/user';
+import {User, UserLoginDto} from '../entity/user';
 
 @Component({
   selector: 'app-login-form',
@@ -35,11 +35,12 @@ export class LoginFormComponent  {
     if(this.loginForm.valid){
       this.submitForm();
       this.loggedIn = true;
-      let resp = this.authenticationService.login(this.username,this.password);
-      resp.subscribe(data => {
-        this.router.navigate(['feed']);
-        console.log(data);
-      });
+      let resp: UserLoginDto = this.authenticationService.login(this.username,this.password);
+      if (resp.accountStatus === 'ACTIVE') {
+          this.router.navigate(['feed']);
+      } else {
+          console.log("need to reissue token");
+      }
     }
   }
 

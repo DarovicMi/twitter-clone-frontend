@@ -6,3 +6,9 @@ export class User {
     imageUrl?: string;
     accountType?: string;
 }
+
+export class UserLoginDto {
+  username?: string;
+  password?: string;
+  accountStatus?: string;
+}

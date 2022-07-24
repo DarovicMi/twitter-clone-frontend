@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import {UserLoginDto} from "../entity/user";
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,16 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
   USER_NAME_SESSION = 'authenticatedUser';
   private url = environment.apiBaseUrl;
-
+  private userLoginDto = {};
   constructor(private http: HttpClient) { }
 
-  public login(username: string, password: string) {
+  public login(username: string, password: string): UserLoginDto {
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username+":"+password)});
-    return this.http.get(`${this.url}/login`, {headers,responseType:'text' as 'json'}).pipe(map((response) => {
-      this.registerLogin(username,password);
-    }))
+    this.http.get<UserLoginDto>(`${this.url}/login`, {headers,responseType:'text' as 'json'}).subscribe(response => {
+        this.userLoginDto = response;
+        this.registerLogin(username,password);
+    });
+    return this.userLoginDto;
   }
 
   registerLogin(username, password) {
@@ -33,6 +36,6 @@ export class AuthenticationService {
     return true
   }
 
-  
- 
+
+
 }
