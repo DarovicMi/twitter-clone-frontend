@@ -39,7 +39,7 @@ export class LoginFormComponent  {
       if (resp.accountStatus === 'ACTIVE') {
           this.router.navigate(['feed']);
       } else {
-          console.log("need to reissue token");
+          console.log(resp);
       }
     }
   }
