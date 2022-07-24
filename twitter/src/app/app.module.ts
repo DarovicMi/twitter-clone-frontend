@@ -6,22 +6,24 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { NgModule } from '@angular/core';
 import { AngularMaterialModule } from './angular-material-module/angular-material.module';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FeedComponent } from './feed/feed.component';
 import { VerificationLinkComponent } from './verification-link/verification-link.component';
-import { UsersComponent } from './users/users.component';
 import { AuthGuard } from './guard/auth-guard.service';
-
+import { ProfileComponent } from './profile/profile.component';
+import { ResendVerificationComponent } from './resend-verification/resend-verification.component';
+//import { HttpInterceptorService} from './services/http-interceptor.service'
 
 
 const routes: Routes = [
   {path: '', redirectTo:'login',pathMatch:'full'},
-  {path: 'users', component: UsersComponent},
   {path: 'register', component:RegistrationFormComponent},
   {path: 'login', component:LoginFormComponent},
   {path: 'feed', component:FeedComponent, canActivate: [AuthGuard]},
-  {path: 'verifyRegistration/:id', component: VerificationLinkComponent}
+  {path: 'resendVerificationLink/:id', component: ResendVerificationComponent},
+  {path: 'verifyRegistration',component: VerificationLinkComponent},
+  {path: 'profile/:id', component: ProfileComponent}
 
 ];
 
@@ -32,7 +34,8 @@ const routes: Routes = [
     LoginFormComponent,
     FeedComponent,
     VerificationLinkComponent,
-    UsersComponent
+    ProfileComponent,
+    ResendVerificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,12 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   providers: [
-    AuthGuard
+    AuthGuard,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: HttpInterceptorService,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

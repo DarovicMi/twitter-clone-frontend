@@ -15,13 +15,12 @@
     <mat-sidenav-container>
         <mat-sidenav #sidenav>
           <mat-nav-list>
-      
+
             <a mat-list-item [routerLink]="'/feed'"><mat-icon>home</mat-icon>Feed</a>
-            <a mat-list-item [routerLink]="'/login'"> <mat-icon>person</mat-icon> Login</a>
-            <a mat-list-item [routerLink]="'/users'"> <mat-icon>people</mat-icon> Users</a>
-            <a mat-list-item (click)="authService.logout()" [routerLink]="'/login'" *ngIf="authService.getLoggedInUser()"><mat-icon>exit_to_app</mat-icon>Logout</a>
+            <a *ngIf="authService.isUserLoggedIn()"  mat-list-item [routerLink]="['/profile', id]"><mat-icon>person_outline</mat-icon>Profile</a>
+            <a mat-list-item (click)="authService.logout()" [routerLink]="'/login'" *ngIf="authService.isUserLoggedIn()"><mat-icon>exit_to_app</mat-icon>Logout</a>
             <a mat-list-item (click)="sidenav.toggle()"> Close</a>
-      
+
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>

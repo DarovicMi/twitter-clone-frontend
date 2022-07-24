@@ -16,9 +16,8 @@
       <mat-sidenav #sidenav>
         <mat-nav-list>
     
-          <a mat-list-item [routerLink]="'/feed'"><mat-icon>home</mat-icon>Feed</a>
+          <a mat-list-item [routerLink]="'/register'"><mat-icon>person_add</mat-icon>Register</a>
           <a mat-list-item [routerLink]="'/login'"> <mat-icon>person</mat-icon> Login</a>
-          <a mat-list-item [routerLink]="'/users'"> <mat-icon>people</mat-icon> Users</a>
           <a mat-list-item (click)="sidenav.toggle()"><mat-icon>exit_to_app</mat-icon> Close</a>
     
         </mat-nav-list>
@@ -118,7 +117,6 @@
               matInput
               placeholder="Confirm your password..."
               formControlName="confirmPassword"
-              ngModel
             />
             <mat-error
               *ngIf="registrationField?.['confirmPassword'].invalid && registrationField?.['confirmPassword'].errors?.['required']"

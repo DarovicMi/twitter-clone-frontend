@@ -45,7 +45,7 @@ export class RegistrationFormComponent {
       this.submitForm(this.user);
       this.userService.registerUser(this.user).subscribe(result => {
         result = this.user;
-        this.router.navigate(['verifyRegistration'])
+        this.router.navigate(['verifyRegistration']);
       }
         
         );

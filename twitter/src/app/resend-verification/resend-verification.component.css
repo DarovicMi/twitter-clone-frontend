@@ -10,10 +10,14 @@ p {
     letter-spacing: 1px;
 }
 
-.login{
-    cursor: pointer;
+a {
+    text-decoration: underline;
     color: cadetblue;
     font-size: 1.7rem;
+}
+
+.login {
+    text-decoration: none;
 }
 .twitter {
     width: 3%;

@@ -27,16 +27,13 @@ export class LoginFormComponent  {
 
   username: string;
   password: string;
-  loggedIn: boolean;
-  loading: boolean;
+
 
 
   doLogin() {
     if(this.loginForm.valid){
       this.submitForm();
-      this.loggedIn = true;
-      const errors = this.authenticationService.login(this.username,this.password);
-      console.log("errors", errors);
+      this.authenticationService.login(this.username,this.password);
     }
   }
 
