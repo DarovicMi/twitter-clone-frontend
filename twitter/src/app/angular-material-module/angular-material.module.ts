@@ -12,9 +12,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms'; 
-
-
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list'
+import {TextFieldModule} from '@angular/cdk/text-field';
 @NgModule({
   declarations: [],
   exports: [
@@ -24,7 +25,6 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     MatSelectModule,
     FormsModule,
     MatIconModule,
-    CommonModule,
     MatTableModule,
     MatSortModule,
     MatFormFieldModule,
@@ -36,7 +36,11 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     MatRadioModule,
     MatButtonModule,
     MatCardModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    TextFieldModule 
   ]
 })
 export class AngularMaterialModule { }

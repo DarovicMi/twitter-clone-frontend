@@ -5,6 +5,7 @@ import { UserService } from '../services/user-service.service';
 import { CustomValidators } from '../validator/custom-validators';
 import { User } from '../entity/user';
 import { ActivatedRoute, Router } from '@angular/router';
+
 export interface AccountType {
   value: string;
 }
@@ -15,28 +16,16 @@ export interface AccountType {
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.css']
 })
-export class RegistrationFormComponent implements OnInit{
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router){
+export class RegistrationFormComponent {
+  
+  user: User;
+  constructor(private userService: UserService, private router: Router){
     this.user = new User();
   }
-  
     hide = false;
     minLength = 8;
     maxLength = 16;
-
-    user: User;
     
-    ngOnInit(){
-      this.userService.registerUser(this.user).subscribe(data => {
-        this.user = data;
-      });
-    }
-
-    onSubmit() {
-      this.userService.registerUser(this.user).subscribe(result => this.user = result);
-    }
-
-
     registerForm = new FormGroup(
       {
         username: new FormControl('',[Validators.required, Validators.minLength(this.minLength), Validators.maxLength(this.maxLength)]),
@@ -48,37 +37,29 @@ export class RegistrationFormComponent implements OnInit{
       },
       CustomValidators.mustMatch('password','confirmPassword')
     );
-    submitted = false;
-    success = '';
     get registrationField() {
       return this.registerForm.controls;
     }
 
-    // onSubmit() {
-    //   this.submitted = true;
+    onSubmit() {
+      this.submitForm(this.user);
+      this.userService.registerUser(this.user).subscribe(result => {
+        result = this.user;
+        this.router.navigate(['verifyRegistration'])
+      }
+        
+        );
+      
+    }
 
-    //   if(this.registerForm.invalid){
-    //     return;
-    //   }
-    //   this.success = JSON.stringify(this.registerForm.value);
-    // }
-    
 
-    // SEND DATA TO BACKEND
-formData() : any {
-  return this.validateForm.value;
+    submitForm(user: User){
+  user.username = this.registerForm.get('username').value;
+  user.email = this.registerForm.get('email').value;
+  user.password = this.registerForm.get('password').value;
+  user.accountType = this.registerForm.get('accountType').value;
+  user.imageUrl = this.registerForm.get('imageUrl').value;
 }
-validateForm: FormGroup;
-submitForm(){
-  const username = this.formData().username;
-  const email = this.formData().email;
-  const password = this.formData().password;
-  const accountType = this.formData().accountType;
-  const imageUrl = this.formData().imageUrl;
-}
-
-
-
 
 selectedValue: string = '';
 types: AccountType[] = [
@@ -86,11 +67,6 @@ types: AccountType[] = [
   {value: 'PRIVATE'}
 ];
 
-imageUrl: any;
-
-onFileSelected(event: any): void {
-this.imageUrl = event.target.files[0] ?? null;
-}
 }
 
 

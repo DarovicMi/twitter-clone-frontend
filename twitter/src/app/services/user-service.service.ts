@@ -18,4 +18,8 @@ export class UserService {
   public registerUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.apiServerUrl}/register`, user);
   }
+  
+  public getUsers() {
+    return this.http.get<User[]>(`${this.apiServerUrl}/users`);
+  }
 }

@@ -1,0 +1,74 @@
+.main-div {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-card {
+    width: 40%;
+  }
+  
+  .form-field {
+      padding: 1rem;
+      width: 70%;
+      
+  }
+
+  .form-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .file-image {
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+  
+  }
+  
+  .card-title{
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    padding-top: 2rem;
+  }
+  .form-group {
+    padding: 5rem;
+  }
+  
+  .btn {
+   width: 70%;
+  }
+  
+  .button-div {
+    width: 100%;
+    margin-top: 1.5rem;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+  }
+
+  .paragraph-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
+
+  .twitter {
+    width: 3%;
+}
+mat-sidenav {
+  width: 20%;
+}
+.forgot-password {
+  display: flex;
+  justify-content: center;
+  padding-top: 2.5rem;
+  font-size: 1.1rem;
+}
+a{
+  text-decoration: none;
+}
+ 
+   

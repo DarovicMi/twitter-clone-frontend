@@ -1,3 +1,31 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <h1>Twitter</h1>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+      <ng-container>
+          <img class="twitter" src="assets/twitter.png" alt="">
+      </ng-container>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+      <mat-sidenav #sidenav>
+        <mat-nav-list>
+    
+          <a mat-list-item [routerLink]="'/feed'"><mat-icon>home</mat-icon>Feed</a>
+          <a mat-list-item [routerLink]="'/login'"> <mat-icon>person</mat-icon> Login</a>
+          <a mat-list-item [routerLink]="'/users'"> <mat-icon>people</mat-icon> Users</a>
+          <a mat-list-item (click)="sidenav.toggle()"><mat-icon>exit_to_app</mat-icon> Close</a>
+    
+        </mat-nav-list>
+      </mat-sidenav>
+
+
+
 <div class="main-div">
   <mat-card>
     <mat-card-title class="card-title">Register</mat-card-title>
@@ -5,18 +33,16 @@
       <form
         class="form-group"
         [formGroup]="registerForm"
-        (ngSubmit)="onSubmit()"
+        
       >
         <div>
           <mat-form-field class="form-field">
-            <mat-label for="name">Username</mat-label>
+            <mat-label>Username</mat-label>
             <input
               matInput
               type="text"
               placeholder="Enter your username..."
               formControlName="username"
-              [(ngModel)]="user.username"
-              name="username"
               autofocus
             />
             <mat-icon matSuffix>perm_identity</mat-icon>
@@ -42,10 +68,8 @@
               type="email"
               matInput
               placeholder="Enter your email..."
-              maxlength="100"
               formControlName="email"
-              [(ngModel)]="user.email"
-              name="email"
+             
             />
             <mat-icon matSuffix>mail_outline</mat-icon>
             <mat-error
@@ -65,8 +89,7 @@
               matInput
               placeholder="Enter your password..."
               formControlName="password"
-              [(ngModel)]="user.password"
-              name="password"
+            
             />
             <mat-icon class="password-icon" matSuffix (click)="hide = !hide">{{
               hide ? "visibility" : "visibility_off"
@@ -112,9 +135,7 @@
             <mat-label>Account Type</mat-label>
             <mat-icon matSuffix>accessibility</mat-icon>
             <mat-select
-              [(ngModel)]="user.accountType"
-              formControlName="accountType"
-              name="accountType"
+              formControlName="accountType" 
             >
               <mat-option *ngFor="let type of types" [value]="type.value">
                 {{ type.value }}
@@ -126,32 +147,13 @@
             >
           </mat-form-field>
         </div>
-        <div>
-          <button type="button" mat-raised-button (click)="fileInput.click()">
-            Choose File
-          </button>
-          <input
-            hidden
-            (change)="onFileSelected($event)"
-            #fileInput
-            type="file"
-            accept="image/*"
-            [(ngModel)]="user.imageUrl"
-            name="imageUrl"
-          />
-          <mat-icon class="file-image" matSuffix>wallpaper</mat-icon>
-          <div>
-            <mat-hint>Choose a picture for your avatar</mat-hint>
-          </div>
-          <div>
-            <ng-container class="file-name">{{ imageUrl?.name }}</ng-container>
-          </div>
-        </div>
         <div class="button-div">
-          <button type="submit" class="btn" mat-raised-button color="primary"><a routerLink="/register">Submit</a></button>
-        </div>
-       
+          <button type="submit" class="btn" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+        </div>       
       </form>
+      <div class="paragraph-div">
+        <p>Already have an account? <button mat-raised-button color="accent" routerLink="/login">Login here</button></p>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

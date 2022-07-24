@@ -8,17 +8,31 @@ import { AngularMaterialModule } from './angular-material-module/angular-materia
 import { LoginFormComponent } from './login-form/login-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { FeedComponent } from './feed/feed.component';
+import { VerificationLinkComponent } from './verification-link/verification-link.component';
+import { UsersComponent } from './users/users.component';
+import { AuthGuard } from './guard/auth-guard.service';
+
 
 
 const routes: Routes = [
-  {path: 'register', component:RegistrationFormComponent}
+  {path: '', redirectTo:'login',pathMatch:'full'},
+  {path: 'users', component: UsersComponent},
+  {path: 'register', component:RegistrationFormComponent},
+  {path: 'login', component:LoginFormComponent},
+  {path: 'feed', component:FeedComponent, canActivate: [AuthGuard]},
+  {path: 'verifyRegistration', component: VerificationLinkComponent}
+  
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    FeedComponent,
+    VerificationLinkComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +42,9 @@ const routes: Routes = [
     [RouterModule.forRoot(routes)]
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

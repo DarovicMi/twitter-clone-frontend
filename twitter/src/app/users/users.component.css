@@ -1,0 +1,16 @@
+.twitter {
+    width: 3%;
+}
+mat-sidenav {
+  width: 20%;
+}
+
+mat-sidenav-content {
+  height: 88vh;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

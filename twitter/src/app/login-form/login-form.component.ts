@@ -1,15 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../security-login/authentication.service';
+import { User } from '../entity/user';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent  {
 
-  constructor() { }
+  minLength = 8;
+  maxLength = 16;
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
-  ngOnInit(): void {
+  loginForm = new FormGroup({
+    username: new FormControl('',[Validators.required]),
+    password: new FormControl('',[Validators.required, Validators.minLength(this.minLength), Validators.maxLength(this.maxLength)])
+  });
+
+  get loginField() {
+    return this.loginForm.controls;
   }
 
-}
+
+  username: string;
+  password: string;
+  loggedIn: boolean;
+  loading: boolean;
+
+
+  doLogin() {
+    if(this.loginForm.valid){
+      this.submitForm();
+      this.loggedIn = true;
+      let resp = this.authenticationService.login(this.username,this.password);
+      resp.subscribe(data => {
+        this.router.navigate(['feed']);
+        console.log(data);
+      });
+    }
+  }
+
+    submitForm(){
+      this.username = this.loginForm.get('username').value;
+      this.password = this.loginForm.get('password').value;
+    }
+  }

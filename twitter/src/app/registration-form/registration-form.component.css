@@ -47,3 +47,15 @@ mat-card {
   justify-content: center;  
   align-items: center;  
 }
+
+.paragraph-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.twitter {
+  width: 3%;
+}
+mat-sidenav {
+  width: 20%;
+}
