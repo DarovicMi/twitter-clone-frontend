@@ -20,6 +20,11 @@ export class PasswordSaveComponent implements OnInit {
       oldPassword: new FormControl('',[Validators.required]),
       newPassword: new FormControl('', [Validators.required])
     });
+
+    this.activeRoute.queryParams.subscribe((query) => {
+      this.token = JSON.stringify(query);
+      console.log(this.token);
+    })
   }
 
   get field() {
@@ -28,16 +33,16 @@ export class PasswordSaveComponent implements OnInit {
 
   password: PasswordModel = new PasswordModel();
 
-  
+  token: string;
  
   savePassword() {
     if(this.savePasswordForm.valid)
     this.submitFields(this.password);
-    console.log(this.password);
-    this.service.savePassword(this.password).subscribe(response => {
-      this.password = response;
-      console.log(response.json());
+  
+      this.service.savePassword(this.token,this.password).subscribe(data => {
+        console.log(data);
     });
+
     }
   
   
