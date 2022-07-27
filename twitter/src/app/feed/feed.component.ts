@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../entity/user';
 import { ProfileComponent } from '../profile/profile.component';
-import { AuthenticationService } from '../security-login/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user-service.service';
 
 @Component({
@@ -15,24 +15,14 @@ export class FeedComponent implements OnInit{
 
     constructor(private userService: UserService, private route: ActivatedRoute, public authService: AuthenticationService, private router: Router){}
 
-   users: User[];
- 
-    id: number;
   
     ngOnInit(): void {
-     console.log(this.getUsers());
+
     }
 
-    private getUsers() {
-      this.userService.getUsers().subscribe(response => {
-        console.log(response);
-        this.users = response;
-        this.users.map(user => this.id = user.id);
-      });
-    }
-
-    getProfile(id: number) {
-      this.router.navigate(['profile',id]);
+    getProfile() {
+      const id = sessionStorage.getItem('userId');
+      return id;
     }
  
 

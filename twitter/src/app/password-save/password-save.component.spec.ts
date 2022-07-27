@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FeedComponent } from './feed.component'
+import { PasswordSaveComponent } from './password-save.component';
 
-describe('FeedComponent', () => {
-  let component: FeedComponent;
-  let fixture: ComponentFixture<FeedComponent>;
+describe('PasswordSaveComponent', () => {
+  let component: PasswordSaveComponent;
+  let fixture: ComponentFixture<PasswordSaveComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FeedComponent ]
+      declarations: [ PasswordSaveComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FeedComponent);
+    fixture = TestBed.createComponent(PasswordSaveComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

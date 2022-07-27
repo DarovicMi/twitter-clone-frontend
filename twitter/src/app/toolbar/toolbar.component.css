@@ -1,0 +1,19 @@
+.twitter {
+    width: 3%;
+}
+
+.content {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 2.5rem;
+}
+a {
+    font-size: 1rem;
+    color: #f8f8f8;
+}
+.span {
+    font-size: 1rem;
+}
+
+

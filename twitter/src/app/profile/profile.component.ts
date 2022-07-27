@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../entity/user';
-import { AuthenticationService } from '../security-login/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user-service.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { UserService } from '../services/user-service.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private route: ActivatedRoute, public authService: AuthenticationService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, public authService: AuthenticationService, private router: Router) { }
 
    id: number;
    user: User;
@@ -21,6 +21,17 @@ export class ProfileComponent implements OnInit {
     this.userService.findUserById(this.id).subscribe(response => {
       this.user = response;
     });
+   }
+
+
+   deleteUser(){
+    alert('This operation is irreversable, ')
+      const userId = sessionStorage.getItem('userId');
+      this.userService.deleteUser(+userId).subscribe(response => {
+          this.router.navigate(['/login']);
+          sessionStorage.removeItem('authenticatedUser');
+          sessionStorage.removeItem('userId');
+      });
    }
 
 }

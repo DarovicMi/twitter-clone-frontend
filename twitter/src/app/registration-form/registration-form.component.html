@@ -1,28 +1,4 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    </button>
-    <h1>Twitter</h1>
-  </mat-toolbar-row>
-  <mat-toolbar-row>
-      <ng-container>
-          <img class="twitter" src="assets/twitter.png" alt="">
-      </ng-container>
-    </mat-toolbar-row>
-  </mat-toolbar>
-
-  <mat-sidenav-container>
-      <mat-sidenav #sidenav>
-        <mat-nav-list>
-    
-          <a mat-list-item [routerLink]="'/register'"><mat-icon>person_add</mat-icon>Register</a>
-          <a mat-list-item [routerLink]="'/login'"> <mat-icon>person</mat-icon> Login</a>
-          <a mat-list-item (click)="sidenav.toggle()"><mat-icon>exit_to_app</mat-icon> Close</a>
-    
-        </mat-nav-list>
-      </mat-sidenav>
-
+<app-toolbar></app-toolbar>
 
 
 <div class="main-div">

@@ -1,0 +1,27 @@
+  
+  
+  <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <ng-container>
+                    <img class="twitter" src="assets/twitter.png" alt="">
+                </ng-container>
+              <h1>Twitter</h1>
+              <div class="content">
+                <a mat-button [routerLink]="'/feed'"><mat-icon>home</mat-icon>Feed</a>
+                <a mat-button *ngIf="authService.isUserLoggedIn()" [routerLink]="['/profile', getProfile()]"><mat-icon>person_outline</mat-icon> Profile </a>
+                <a mat-button *ngIf="!authService.isUserLoggedIn()" [routerLink]="'/login'"><mat-icon>person</mat-icon> Login </a>
+                <a mat-button (click)="authService.logout()" *ngIf="authService.isUserLoggedIn()" [routerLink]="'/login'"><mat-icon>exit_to_app</mat-icon> Logout </a>
+                <a mat-button *ngIf="!authService.isUserLoggedIn()" [routerLink]="'/register'"> <mat-icon>person_add</mat-icon> Register </a>
+              </div>
+            </mat-toolbar-row>
+          
+            <mat-toolbar-row>
+                <span class="span">Social Media</span>
+              </mat-toolbar-row>
+          </mat-toolbar>
+          
+
+
+
+
+

@@ -8,6 +8,7 @@ export class User {
 }
 
 export class UserLoginDto {
+  id?: number;
   username?: string;
   password?: string;
   accountStatus?: string;

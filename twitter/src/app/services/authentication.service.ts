@@ -12,13 +12,14 @@ export class AuthenticationService {
   USER_NAME_SESSION = 'authenticatedUser';
   private url = environment.apiBaseUrl;
   constructor(private http: HttpClient, private router: Router) { }
-
+  id: number;
   username: string;
-  password: string;
+  password: string; 
 
   public login(username: string, password: string): any {
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username+":"+password)});
     this.http.get<UserLoginDto>(`${this.url}/login`, {headers}).subscribe(response => {
+        this.id = response.id;
         this.username = username;
         this.password = password;
         this.registerLogin(username,password);
@@ -33,12 +34,15 @@ export class AuthenticationService {
 
   registerLogin(username, password) {
     sessionStorage.setItem(this.USER_NAME_SESSION, username);
+    sessionStorage.setItem('userId',this.id.toString());
   }
 
   logout() {
     sessionStorage.removeItem(this.USER_NAME_SESSION);
+    sessionStorage.removeItem('userId');
     this.username = null;
     this.password = null;
+    this.id = null;
   }
 
   isUserLoggedIn() {

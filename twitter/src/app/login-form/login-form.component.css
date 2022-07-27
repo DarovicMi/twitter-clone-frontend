@@ -54,13 +54,6 @@ mat-card {
     justify-content: center;
     align-items: center;
   } 
-
-  .twitter {
-    width: 3%;
-}
-mat-sidenav {
-  width: 20%;
-}
 .forgot-password {
   display: flex;
   justify-content: center;
@@ -69,6 +62,12 @@ mat-sidenav {
 }
 a{
   text-decoration: none;
+}
+.remember {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
  
 

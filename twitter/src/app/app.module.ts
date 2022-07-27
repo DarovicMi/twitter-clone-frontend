@@ -13,6 +13,9 @@ import { VerificationLinkComponent } from './verification-link/verification-link
 import { AuthGuard } from './guard/auth-guard.service';
 import { ProfileComponent } from './profile/profile.component';
 import { ResendVerificationComponent } from './resend-verification/resend-verification.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { PasswordSaveComponent } from './password-save/password-save.component';
 //import { HttpInterceptorService} from './services/http-interceptor.service'
 
 
@@ -23,19 +26,24 @@ const routes: Routes = [
   {path: 'feed', component:FeedComponent, canActivate: [AuthGuard]},
   {path: 'resendVerificationLink/:id', component: ResendVerificationComponent},
   {path: 'verifyRegistration',component: VerificationLinkComponent},
-  {path: 'profile/:id', component: ProfileComponent}
+  {path: 'profile/:id', component: ProfileComponent},
+  {path: 'resetPassword', component: PasswordResetComponent},
+  {path: 'savePassword', component: PasswordSaveComponent}
 
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    ToolbarComponent,
     RegistrationFormComponent,
     LoginFormComponent,
     FeedComponent,
     VerificationLinkComponent,
     ProfileComponent,
     ResendVerificationComponent,
+    PasswordResetComponent,
+    PasswordSaveComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +54,7 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   providers: [
-    AuthGuard,
+    AuthGuard, ToolbarComponent
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: HttpInterceptorService,

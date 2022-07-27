@@ -16,17 +16,11 @@ export interface AccountType {
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.css']
 })
-export class RegistrationFormComponent {
+export class RegistrationFormComponent implements OnInit{
+  registerForm: FormGroup;
   
-  user: User;
-  constructor(private userService: UserService, private router: Router){
-    this.user = new User();
-  }
-    hide = false;
-    minLength = 8;
-    maxLength = 16;
-    
-    registerForm = new FormGroup(
+  ngOnInit(): void {
+    this.registerForm = new FormGroup(
       {
         username: new FormControl('',[Validators.required, Validators.minLength(this.minLength), Validators.maxLength(this.maxLength)]),
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -37,6 +31,17 @@ export class RegistrationFormComponent {
       },
       CustomValidators.mustMatch('password','confirmPassword')
     );
+  }
+  
+  user: User;
+  constructor(private userService: UserService, private router: Router){
+    this.user = new User();
+  }
+
+    hide = false;
+    minLength = 8;
+    maxLength = 16;
+    
     get registrationField() {
       return this.registerForm.controls;
     }
