@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
-import {User, UserLoginDto} from '../entity/user';
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -19,7 +19,7 @@ loginForm: FormGroup;
   }
   minLength = 8;
   maxLength = 16;
-  
+  hide: boolean;
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
 
@@ -32,8 +32,7 @@ loginForm: FormGroup;
     if(this.loginForm.valid){
       this.submitForm();
       this.authenticationService.login(this.username,this.password);
-    }
-
+    } 
   }
 
     username: string;

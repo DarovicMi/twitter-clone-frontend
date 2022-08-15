@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import { FormGroup, FormBuilder, Validators,ValidatorFn,ValidationErrors } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user-service.service';
 import { CustomValidators } from '../validator/custom-validators';
 import { User } from '../entity/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 export interface AccountType {
   value: string;
@@ -18,8 +20,9 @@ export interface AccountType {
 })
 export class RegistrationFormComponent implements OnInit{
   registerForm: FormGroup;
-  
+
   ngOnInit(): void {
+    
     this.registerForm = new FormGroup(
       {
         username: new FormControl('',[Validators.required, Validators.minLength(this.minLength), Validators.maxLength(this.maxLength)]),
@@ -29,12 +32,14 @@ export class RegistrationFormComponent implements OnInit{
         accountType: new FormControl('',[Validators.required]),
         imageUrl: new FormControl('',Validators.required)
       },
-      CustomValidators.mustMatch('password','confirmPassword')
+      CustomValidators.mustMatch('password','confirmPassword'),
     );
+    
+      
   }
   
   user: User;
-  constructor(private userService: UserService, private router: Router){
+  constructor(private userService: UserService, private router: Router ){
     this.user = new User();
   }
 
@@ -50,11 +55,13 @@ export class RegistrationFormComponent implements OnInit{
       this.submitForm(this.user);
       this.userService.registerUser(this.user).subscribe(result => {
         result = this.user;
+        alert('Account registered successfully');
         this.router.navigate(['verifyRegistration']);
-      }
-        
-        );
-      
+      }, (error: HttpErrorResponse) => {
+        if(error.status === 500){
+          alert('An account with this username or email already exists');
+        } 
+      })
     }
 
 
@@ -63,7 +70,6 @@ export class RegistrationFormComponent implements OnInit{
   user.email = this.registerForm.get('email').value;
   user.password = this.registerForm.get('password').value;
   user.accountType = this.registerForm.get('accountType').value;
-  user.imageUrl = this.registerForm.get('imageUrl').value;
 }
 
 selectedValue: string = '';
@@ -72,7 +78,13 @@ types: AccountType[] = [
   {value: 'PRIVATE'}
 ];
 
+fileChangeEvent(event: Event){
+  const file = (event.target as HTMLInputElement).files[0].name;
+  this.user.imageUrl = 'assets/' + file;
 }
+
+}
+
 
 
 

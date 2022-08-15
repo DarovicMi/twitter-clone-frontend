@@ -9,11 +9,15 @@ import { User } from '../entity/user';
 })
 export class UserService {
 
+
+
   private apiServerUrl: string;
+
 
   constructor(private http: HttpClient) { 
     this.apiServerUrl = environment.apiBaseUrl;
   }
+  
 
   public registerUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.apiServerUrl}/register`, user);
@@ -29,4 +33,14 @@ export class UserService {
   public deleteUser(userId: number):Observable<User> {
     return this.http.delete<User>(`${this.apiServerUrl}/user/${userId}`);
   }
+  public updateUser(userId: number, user: User){
+    return this.http.put<User>(`${this.apiServerUrl}/users/${userId}`, user);
+  }
+  public getUserByUsername(username: string) {
+    return this.http.get<User>(`${this.apiServerUrl}/user/username/${username}`);
+  }
+  public getUserByEmail(email: string) {
+    return this.http.get<User>(`${this.apiServerUrl}/user/email/${email}`);
+  }
+ 
 }

@@ -1,0 +1,18 @@
+<app-toolbar></app-toolbar>
+
+<div class="main-div" *ngFor="let user of users">
+    <div class="users">
+        <img [src]="user.imageUrl" alt="user image" height="50px">
+        <span>@{{user.username}}</span>
+        <div *ngIf="isFollowing; then unfollowButton else followButton">
+
+        </div>
+        <ng-template #followButton>
+            <button mat-raised-button color="primary" (click)="toggleFollow(user.id)">Follow</button>
+        </ng-template>
+        <ng-template #unfollowButton>
+            <button mat-flat-button color="warn" (click)="toggleFollow(user.id)">Unfollow</button>
+        </ng-template>
+        
+    </div>
+</div>

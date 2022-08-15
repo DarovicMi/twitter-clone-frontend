@@ -6,14 +6,38 @@
         <mat-card-content>
             <div *ngIf="user">
               <mat-list role="list">
-                <mat-list-item role="listitem">User Id -->  {{ user.id }}</mat-list-item>
-                <mat-list-item role="listitem">Username --> {{ user.username }}</mat-list-item>
-                <mat-list-item role="listitem">Email --> {{ user.email }}</mat-list-item>
-                <mat-list-item role="listitem">Account Type --> {{ user.accountType }}</mat-list-item>
+                <mat-list-item role="listitem"><i class="fa fa-user" aria-hidden="true"></i>Username --> {{ user.username }} <mat-icon class="verified-user-icon" *ngIf="user.accountStatus === 'ACTIVE'">verified_user</mat-icon>
+                <button mat-raised-button color="accent" (click)="toggleEditUsername()">Edit</button>
+                <form *ngIf="editUsername" [formGroup]="changeFormUsername">
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Enter your new username..." formControlName="username" required>
+                    <mat-error *ngIf="changeFormFieldUsername?.['username'].errors?.['required']">You must enter a value to change your username</mat-error>
+                    <mat-error *ngIf="changeFormFieldUsername?.['username'].errors?.['minlength']">Username is too short</mat-error>
+                    <mat-error *ngIf="changeFormFieldUsername?.['username'].errors?.['maxlength']">Username is too long</mat-error>
+                    <mat-error *ngIf="changeFormFieldUsername?.['username'].errors?.['usernameAlreadyExists']">Username already taken</mat-error>
+                  </mat-form-field>
+                  <button mat-raised-button color="warn" (click)="updateUserUsername()" [disabled]="!changeFormUsername.valid">Change Username</button>
+                </form>
+                </mat-list-item>
+                <mat-list-item role="listitem"><i class="fa fa-envelope" aria-hidden="true"></i>Email --> {{ user.email }} 
+                   <button mat-raised-button color="accent" (click)="toggleEditEmail()">Edit</button></mat-list-item> 
+                   <form *ngIf="editEmail" [formGroup]="changeFormEmail">
+                    <mat-form-field>
+                    <input type="email" matInput placeholder="Enter your new email..." formControlName="email" required>
+                    <mat-error *ngIf="changeFormFieldEmail?.['email'].errors?.['email']">Not a valid email</mat-error>
+                    <mat-error *ngIf="changeFormFieldEmail?.['email'].errors?.['emailAlreadyExists']">Email already exists</mat-error>
+                  </mat-form-field>
+                  <button color="warn" mat-raised-button (click)="updateUserEmail()" [disabled]="!changeFormEmail.valid">Change Email</button>
+                   </form>
+
+                
+                <mat-list-item role="listitem" *ngIf="user.accountType === 'PUBLIC'"><mat-icon>public</mat-icon>Account Type --> {{ user.accountType }}</mat-list-item>
+                <mat-list-item role="listitem" *ngIf="user.accountType === 'PRIVATE'"><i class="fa fa-lock" aria-hidden="true"></i>Account Type --> {{ user.accountType }}</mat-list-item>
               </mat-list>
             </div>
             <div>
               <button class="btn" mat-raised-button color="warn" (click)="deleteUser()">Delete Account</button>
+              <button class="btn" mat-raised-button color="accent" (click)="changePasswordRoute()">Change Password</button>
             </div>
         </mat-card-content>
       </mat-card>

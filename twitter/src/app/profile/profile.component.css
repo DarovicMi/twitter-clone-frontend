@@ -1,16 +1,6 @@
-.twitter {
-    width: 3%;
-}
-mat-sidenav {
-  width: 20%;
-}
 
-.content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-mat-sidenav-container {
-  height: 88vh;
+
+.verified-user-icon {
+  color:#0675C6;
 }

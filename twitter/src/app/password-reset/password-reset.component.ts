@@ -35,7 +35,7 @@ export class PasswordResetComponent implements OnInit {
      } else {
       this.password.email = this.resetPasswordEmail.get('email').value;
       this.service.resetPassword(this.password).subscribe(response => {
-        response = this.password;
+        this.password = response;
         console.log(this.password);
         alert('A link to reset your password has been sent to the email you have provided, please check your inbox');
       });

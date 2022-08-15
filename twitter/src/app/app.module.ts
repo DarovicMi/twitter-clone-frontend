@@ -16,11 +16,12 @@ import { ResendVerificationComponent } from './resend-verification/resend-verifi
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { PasswordSaveComponent } from './password-save/password-save.component';
-//import { HttpInterceptorService} from './services/http-interceptor.service'
-
+import { HttpInterceptorService} from './services/http-interceptor.service';
+import { FollowersComponent } from './followers/followers.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'login',pathMatch:'full'},
+  {path: '', redirectTo:'feed',pathMatch:'full'},
   {path: 'register', component:RegistrationFormComponent},
   {path: 'login', component:LoginFormComponent},
   {path: 'feed', component:FeedComponent, canActivate: [AuthGuard]},
@@ -28,8 +29,11 @@ const routes: Routes = [
   {path: 'verifyRegistration',component: VerificationLinkComponent},
   {path: 'profile/:id', component: ProfileComponent},
   {path: 'resetPassword', component: PasswordResetComponent},
-  {path: 'savePassword', component: PasswordSaveComponent}
-
+  {path: 'savePassword', component: PasswordSaveComponent},
+  {path: 'tweet/:tweetId/comment', component: FeedComponent},
+  {path: 'find-people',component: FollowersComponent},
+  {path: 'find-people/user/:userId', component: FollowersComponent},
+  {path: 'changePassword', component: ChangePasswordComponent}
 ];
 
 @NgModule({
@@ -43,23 +47,27 @@ const routes: Routes = [
     ProfileComponent,
     ResendVerificationComponent,
     PasswordResetComponent,
-    PasswordSaveComponent
+    PasswordSaveComponent,
+    FollowersComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     HttpClientModule,
-    [RouterModule.forRoot(routes)]
+    [RouterModule.forRoot(routes),
+
+  ]
   ],
   exports: [RouterModule],
   providers: [
-    AuthGuard, ToolbarComponent
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpInterceptorService,
-    //   multi: true
-    // }
+    AuthGuard, ToolbarComponent,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

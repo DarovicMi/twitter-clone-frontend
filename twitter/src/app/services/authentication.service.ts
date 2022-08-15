@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {map, Observable} from 'rxjs';
 import { environment } from 'src/environments/environment';
-import {User, UserLoginDto} from "../entity/user";
+import {UserLoginDto} from "../entity/user";
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -11,13 +10,14 @@ import {Router} from "@angular/router";
 export class AuthenticationService {
   USER_NAME_SESSION = 'authenticatedUser';
   private url = environment.apiBaseUrl;
+  
   constructor(private http: HttpClient, private router: Router) { }
   id: number;
   username: string;
   password: string; 
 
   public login(username: string, password: string): any {
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username+":"+password)});
+    const headers = new HttpHeaders({Authorization: this.createBasicAuthToken(username,password)});
     this.http.get<UserLoginDto>(`${this.url}/login`, {headers}).subscribe(response => {
         this.id = response.id;
         this.username = username;
@@ -29,30 +29,44 @@ export class AuthenticationService {
           console.log(response);
           this.router.navigate( ['/resendVerificationLink/' + response.oldToken])
         }
+    }, (error: HttpErrorResponse) => {
+      if(error.status === 401){
+        alert('Invalid credentials');
+      }
     });
   }
+  
+  token;
+  createBasicAuthToken(username: string, password: string){
+    this.token = 'Basic ' + window.btoa(username + ":" + password);
+    localStorage.setItem('token', this.token);
+    return this.token;
+  }
+
+ 
 
   registerLogin(username, password) {
-    sessionStorage.setItem(this.USER_NAME_SESSION, username);
-    sessionStorage.setItem('userId',this.id.toString());
+    localStorage.setItem(this.USER_NAME_SESSION, username);
+    localStorage.setItem('userId',this.id.toString());
   }
 
   logout() {
-    sessionStorage.removeItem(this.USER_NAME_SESSION);
-    sessionStorage.removeItem('userId');
+    localStorage.removeItem(this.USER_NAME_SESSION);
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');
     this.username = null;
     this.password = null;
     this.id = null;
   }
 
   isUserLoggedIn() {
-    let loggedInUser = sessionStorage.getItem(this.USER_NAME_SESSION);
+    let loggedInUser = localStorage.getItem(this.USER_NAME_SESSION);
     if (loggedInUser === null) return false
     return true
   }
 
   showLoggedInUser(){
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION);
+    let user = localStorage.getItem(this.USER_NAME_SESSION);
     if(user === null) return '';
     return user;
   }

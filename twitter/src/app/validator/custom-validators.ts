@@ -1,7 +1,6 @@
 import {
     AbstractControl,
     ValidatorFn,
-    FormControl,
     FormGroup
   } from '@angular/forms';
   
@@ -29,7 +28,6 @@ import {
           return;
         }
   
-        // set error on matchingControl if validation fails
         if (control.value !== matchingControl.value) {
           matchingControl.setErrors({ mustMatch: true });
         } else {

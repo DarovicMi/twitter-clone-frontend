@@ -1,40 +1,75 @@
 <app-toolbar></app-toolbar>
 
 <div class="main-div">
-    <mat-card>
-        <mat-card-title class="card-title">Log In</mat-card-title>
-        <mat-card-content>
-            <form class="form-group" [formGroup]="loginForm" method="get" >
-                <div class="form-control">
-                    <mat-form-field class="form-field">
-                        <mat-label>Username</mat-label>
-                        <input type="text" matInput placeholder="Enter your username..." formControlName="username" autofocus>
-                        <mat-error *ngIf="loginField?.['username'].invalid && loginField?.['username'].errors?.['required']">Username is required to login</mat-error>
-                    </mat-form-field>
-                    
-                </div>
-                <div class="form-control">
-                    <mat-form-field class="form-field">
-                        <mat-label>Password</mat-label>
-                        <input type="password" matInput placeholder="Enter your password..." formControlName="password">
-                        <mat-error *ngIf="loginField?.['password'].invalid && loginField?.['password'].errors?.['required']">Password is required to login</mat-error>
-                        <mat-error *ngIf="loginField?.['password'].errors?.['minlength']">Password is too short</mat-error>
-                        <mat-error *ngIf="loginField?.['password'].errors?.['maxlength']">Password is too long</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="button-div" >
-                    <button class="btn" mat-raised-button color="primary" (click)="doLogin()">LOGIN</button>
-                </div>
-                <div class="remember">
-                  <mat-checkbox color="primary">Remember me</mat-checkbox>
-                </div>
-                <div class="forgot-password">
-                    <a routerLink="/resetPassword">Forgot password?</a>
-                </div>
-            </form>
-            <div class="paragraph-div">
-                <p>Don't have an account? <button mat-raised-button color="accent" routerLink="/register">Register here</button></p>
-            </div>
-        </mat-card-content>
-    </mat-card>
+  <mat-card>
+    <mat-card-title class="card-title">Log In</mat-card-title>
+    <mat-card-content>
+      <form class="form-group" [formGroup]="loginForm" method="get">
+        <div class="form-control">
+          <mat-form-field class="form-field">
+            <mat-label>Username</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Enter your username..."
+              formControlName="username"
+              autofocus
+            />
+            <mat-error
+              *ngIf="loginField?.['username'].invalid && loginField?.['username'].errors?.['required']"
+              >Username is required to login</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="form-control">
+          <mat-form-field class="form-field">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="hide ? 'text' : 'password'"
+              matInput
+              placeholder="Enter your password..."
+              formControlName="password"
+            />
+            <mat-icon class="password-icon" matSuffix (click)="hide = !hide">{{
+              hide ? "visibility" : "visibility_off"
+            }}</mat-icon>
+            <mat-error
+              *ngIf="loginField?.['password'].invalid && loginField?.['password'].errors?.['required']"
+              >Password is required to login</mat-error
+            >
+            <mat-error *ngIf="loginField?.['password'].errors?.['minlength']"
+              >Password is too short</mat-error
+            >
+            <mat-error *ngIf="loginField?.['password'].errors?.['maxlength']"
+              >Password is too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="button-div">
+          <button
+            class="btn"
+            mat-raised-button
+            color="primary"
+            (click)="doLogin()"
+          >
+            LOGIN
+          </button>
+        </div>
+        <div class="remember">
+          <mat-checkbox color="primary">Remember me</mat-checkbox>
+        </div>
+        <div class="forgot-password">
+          <a routerLink="/resetPassword">Forgot password?</a>
+        </div>
+      </form>
+      <div class="paragraph-div">
+        <p>
+          Don't have an account?
+          <button mat-raised-button color="accent" routerLink="/register">
+            Register here
+          </button>
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -1,3 +1,3 @@
 export class PasswordModel {
-    constructor(public oldPassword?: string, public newPassword?: string){}
+    constructor(public newPassword?: string, public confirmNewPassword?: string){}
 }

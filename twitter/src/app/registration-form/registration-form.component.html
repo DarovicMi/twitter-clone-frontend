@@ -1,15 +1,10 @@
 <app-toolbar></app-toolbar>
 
-
 <div class="main-div">
   <mat-card>
     <mat-card-title class="card-title">Register</mat-card-title>
     <mat-card-content>
-      <form
-        class="form-group"
-        [formGroup]="registerForm"
-        
-      >
+      <form class="form-group" [formGroup]="registerForm">
         <div>
           <mat-form-field class="form-field">
             <mat-label>Username</mat-label>
@@ -44,7 +39,6 @@
               matInput
               placeholder="Enter your email..."
               formControlName="email"
-             
             />
             <mat-icon matSuffix>mail_outline</mat-icon>
             <mat-error
@@ -64,7 +58,6 @@
               matInput
               placeholder="Enter your password..."
               formControlName="password"
-            
             />
             <mat-icon class="password-icon" matSuffix (click)="hide = !hide">{{
               hide ? "visibility" : "visibility_off"
@@ -108,11 +101,19 @@
           <mat-form-field class="form-field">
             <mat-label>Account Type</mat-label>
             <mat-icon matSuffix>accessibility</mat-icon>
-            <mat-select
-              formControlName="accountType" 
-            >
+            <mat-select formControlName="accountType">
               <mat-option *ngFor="let type of types" [value]="type.value">
                 {{ type.value }}
+                <i
+                  class="fa fa-lock"
+                  *ngIf="type.value === 'PRIVATE'"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  *ngIf="type.value === 'PUBLIC'"
+                  class="fa fa-globe"
+                  aria-hidden="true"
+                ></i>
               </mat-option>
             </mat-select>
             <mat-error
@@ -121,12 +122,39 @@
             >
           </mat-form-field>
         </div>
+        <div class="file-input-div">
+          <label for="input">
+            <i class="fa fa-2x fa-camera" id="file-camera"></i>
+            <mat-hint *ngIf="user.imageUrl === undefined"
+              >Select image</mat-hint
+            >
+            <input
+              type="file"
+              (change)="fileChangeEvent($event)"
+              class="file-input"
+              id="input"
+            />
+          </label>
+          <img class="file-image" [src]="user.imageUrl" alt="" height="40px" />
+        </div>
         <div class="button-div">
-          <button type="submit" class="btn" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
-        </div>       
+          <button
+            class="btn"
+            mat-raised-button
+            color="primary"
+            (click)="onSubmit()"
+          >
+            Submit
+          </button>
+        </div>
       </form>
       <div class="paragraph-div">
-        <p>Already have an account? <button mat-raised-button color="accent" routerLink="/login">Login here</button></p>
+        <p>
+          Already have an account?
+          <button mat-raised-button color="accent" routerLink="/login">
+            Login here
+          </button>
+        </p>
       </div>
     </mat-card-content>
   </mat-card>

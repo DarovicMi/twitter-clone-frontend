@@ -53,12 +53,19 @@ mat-card {
   justify-content: center;
   align-items: center;
 }
-.twitter {
-  width: 3%;
+
+.file-input-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-mat-sidenav {
-  width: 20%;
+.file-input {
+  display: none;
 }
-mat-sidenav-container {
-  height: 88vh;
+#file-camera {
+  cursor: pointer;
 }
+.file-image {
+  border-radius: 40px;
+}
+
