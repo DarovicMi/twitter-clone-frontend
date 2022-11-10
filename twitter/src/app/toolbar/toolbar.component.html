@@ -12,7 +12,7 @@
                 <a mat-button *ngIf="!authService.isUserLoggedIn()" [routerLink]="'/login'"><mat-icon>person</mat-icon> Login </a>
                 <a mat-button (click)="authService.logout()" *ngIf="authService.isUserLoggedIn()" [routerLink]="'/login'"><mat-icon>exit_to_app</mat-icon> Logout </a>
                 <a mat-button *ngIf="!authService.isUserLoggedIn()" [routerLink]="'/register'"> <mat-icon>person_add</mat-icon> Register </a>
-                <a mat-button *ngIf="authService.isUserLoggedIn()" [routerLink]="'/find-people'"><i class="fa fa-users" aria-hidden="true"></i>Find People</a>
+                <!-- <a mat-button *ngIf="authService.isUserLoggedIn()" [routerLink]="'/find-people'"><i class="fa fa-users" aria-hidden="true"></i>Find People</a> -->
               </div>
             </mat-toolbar-row>
           

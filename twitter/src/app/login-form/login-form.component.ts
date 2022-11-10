@@ -10,6 +10,7 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginFormComponent  implements OnInit{
 loginForm: FormGroup;
+
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('',[Validators.required]),
